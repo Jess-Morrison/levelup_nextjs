@@ -13,8 +13,9 @@ const GameCard = ({
     <Card.Body>
       <Card.Title>By: {maker}</Card.Title>
       <Card.Text>{numberOfPlayers} players needed</Card.Text>
+      <Card.Text>Skill Level: {skillLevel}</Card.Text>
     </Card.Body>
-    <Card.Footer className="text-muted">Skill Level: {skillLevel}</Card.Footer>
+    <Card.Footer />
   </Card>
 );
 
