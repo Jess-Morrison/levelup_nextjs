@@ -10,10 +10,11 @@ const getEvents = () => new Promise((resolve, reject) => {
 const createEvent = (event) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/events`, {
     method: 'POST',
+    body: JSON.stringify(event),
     headers: {
       'Content-Type': 'application/json',
+      Accept: 'application/json',
     },
-    body: JSON.stringify(event),
   })
     .then((response) => resolve(response.data))
     .catch(reject);

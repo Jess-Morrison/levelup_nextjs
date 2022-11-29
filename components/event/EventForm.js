@@ -12,6 +12,7 @@ const EventForm = ({ obj }) => {
   const { user } = useAuth();
   const router = useRouter();
   const [games, setGames] = useState([]);
+  console.log(games);
   /*
   Since the input fields are bound to the values of
   the properties of this state variable, you need to
@@ -52,10 +53,11 @@ const EventForm = ({ obj }) => {
     } else {
       const event = {
         description: currentEvent.description,
-        date: Number(currentEvent.date),
-        time: Number(currentEvent.time),
-        game: Number(games.id),
-        organizer: Number(user.uid),
+        date: currentEvent.date,
+        time: currentEvent.time,
+        game: Number(currentEvent.game),
+        organizer: user.uid,
+        // why user id? and what is Number()?
       };
       // Send POST request to your API
       createEvent(event).then(() => {

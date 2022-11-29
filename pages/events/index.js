@@ -12,7 +12,7 @@ function Home() {
   useEffect(() => {
     getEvents().then((setEvents));
   }, []);
-  console.log(events);
+
   // useEffect(() => {
   //   getEvents().then((data) => setEvents(data));
   // }, []);
@@ -29,13 +29,13 @@ function Home() {
           router.push('/events/new');
         }}
       >
-        Register New Game
+        Register New Event
       </Button>
       <article className="events">
         <h1>Events</h1>
         {events.map((event) => (
           <section key={`event--${event.id}`} className="event">
-            <EventCard description={event.description} date={event.date} time={event.time} organizer={event.organizer} />
+            <EventCard description={event.description} date={event.date} time={event.time} organizer={event.organizer.bio} />
           </section>
         ))}
       </article>
