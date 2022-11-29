@@ -7,10 +7,20 @@ import { getEvents } from '../../utils/data/eventData';
 function Home() {
   const [events, setEvents] = useState([]);
   const router = useRouter();
+  // const { data } = router.query;
 
   useEffect(() => {
-    getEvents().then((data) => setEvents(data));
+    getEvents().then((setEvents));
   }, []);
+  console.log(events);
+  // useEffect(() => {
+  //   getEvents().then((data) => setEvents(data));
+  // }, []);
+
+  // useEffect(() => {
+  //   getEvents(data).then(setEvents);
+  // }, [data]);
+  // console.warn(typeof events);
 
   return (
     <>

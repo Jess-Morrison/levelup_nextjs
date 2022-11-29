@@ -4,11 +4,10 @@ import React from 'react';
 import { Card } from 'react-bootstrap';
 
 function EventCard({
-  // game,
+  organizer,
   description,
   date,
   time,
-  organizer,
 }) {
   // const [formInput, setFormInput] = useState(initialState);
   // useEffect(() => {
@@ -28,11 +27,12 @@ function EventCard({
 }
 
 EventCard.propTypes = {
-  // game: PropTypes.number.isRequired,
-  description: PropTypes.string.isRequired,
-  date: PropTypes.number.isRequired,
-  time: PropTypes.number.isRequired,
-  organizer: PropTypes.number.isRequired,
-};
+
+  game: PropTypes.number,
+  description: PropTypes.string,
+  date: PropTypes.number,
+  time: PropTypes.number,
+  organizer: PropTypes.number,
+}.isRequired;
 
 export default EventCard;

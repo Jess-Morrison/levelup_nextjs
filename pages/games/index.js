@@ -12,6 +12,8 @@ function Home() {
     getGames().then((data) => setGames(data));
   }, []);
 
+  // console.warn(typeof games);
+
   return (
     <>
       <Button
