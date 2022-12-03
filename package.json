@@ -1,8 +1,8 @@
 {
-  "name": "next-firebase-starter",
+  "name": "level_up",
   "private": true,
   "version": "1.0.0",
-  "author": "Trinity Christiana",
+  "author": "Jessica Morrison",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
