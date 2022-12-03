@@ -27,7 +27,7 @@ const getGameTypes = () => new Promise((resolve, reject) => {
 });
 
 const updateGame = (game) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/games`, {
+  fetch(`${clientCredentials.databaseURL}/games/${game.id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -38,8 +38,15 @@ const updateGame = (game) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const getGameById = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/games/${id}`)
+    .then((response) => response.json())
+    .then(resolve)
+    .catch(reject);
+});
+
 export {
-  getGames, createGame, getGameTypes, updateGame,
+  getGames, createGame, getGameTypes, updateGame, getGameById,
 };
 
 // eslint-disable-next-line import/prefer-default-export

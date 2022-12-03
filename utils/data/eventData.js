@@ -20,17 +20,26 @@ const createEvent = (event) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const updateEvent = (game) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/events`, {
+const updateEvent = (event, id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/events/edit/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(game),
+    body: JSON.stringify(event),
   })
     .then((response) => resolve(response.data))
     .catch(reject);
 });
 
+const getEventById = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/events/${id}`)
+    .then((response) => response.json())
+    .then(resolve)
+    .catch(reject);
+});
+
 // eslint-disable-next-line import/prefer-default-export
-export { getEvents, updateEvent, createEvent };
+export {
+  getEvents, updateEvent, createEvent, getEventById,
+};

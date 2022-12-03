@@ -6,6 +6,14 @@ import { Button, Form } from 'react-bootstrap';
 import { useAuth } from '../../utils/context/authContext';
 import { createGame, getGameTypes, updateGame } from '../../utils/data/gameData';
 
+const initialState = {
+  skill_level: 1,
+  number_of_players: 0,
+  title: '',
+  maker: '',
+  game_type: 0,
+};
+
 const GameForm = ({ obj }) => {
   // const [formInput, setFormInput] = useState();
   const { user } = useAuth();
@@ -17,23 +25,34 @@ const GameForm = ({ obj }) => {
   the properties of this state variable, you need to
   provide some default values.
   */
-  const [currentGame, setCurrentGame] = useState({
-    skill_level: 1,
-    number_of_players: 0,
-    title: '',
-    maker: '',
-    game_type: 0,
-  });
+  const [currentGame, setCurrentGame] = useState(initialState);
+  // const [currentGame, setCurrentGame] = useState({
+  //   skill_level: 1,
+  //   number_of_players: 0,
+  //   title: '',
+  //   maker: '',
+  //   game_type: 0,
+  // });
 
   useEffect(() => {
     // setCurrentGame is the same as setFormInput
-    if (obj)setCurrentGame(obj);
+    if (obj.id)setCurrentGame(obj);
   }, [obj, user]);
 
   useEffect(() => {
     // TODO: Get the game types, then set the state
+    // if (obj.id) {
+    //   const editGame = {
+    //     skill_level: obj.skill_level,
+    //     number_of_players: obj.number_of_players,
+    //     title: obj.title,
+    //     maker: obj.maker,
+    //     game_type: obj.game_type.id,
+    //   };
+    //   setCurrentGame(editGame);
+    // }
     getGameTypes().then(setGameTypes);
-  }, []);
+  }, [obj]);
 
   const handleChange = (e) => {
     // TODO: Complete the onChange function
@@ -47,7 +66,7 @@ const GameForm = ({ obj }) => {
   const handleSubmit = (e) => {
     // Prevent form from being submitted
     e.preventDefault();
-    if (obj) {
+    if (obj.id) {
       updateGame(currentGame).then(() => router.push('/games'));
     } else {
       const game = {
@@ -72,6 +91,7 @@ const GameForm = ({ obj }) => {
   return (
     <>
       <Form onSubmit={handleSubmit}>
+        <h2 className="text-white mt-5">{obj.id ? 'Update' : 'Create'} Player</h2>
         <Form.Group className="mb-3">
           {/* <h2 className="text-white mt-5">{obj.id ? 'Update' : 'Create'} Game</h2> */}
           <Form.Label>Title</Form.Label>
@@ -101,7 +121,7 @@ const GameForm = ({ obj }) => {
               <option
                 key={gameType.id}
                 value={gameType.id}
-                selected={gameType.label}
+                // selected={gameType.label}
               >
                 {gameType.label}
               </option>
@@ -111,10 +131,10 @@ const GameForm = ({ obj }) => {
           </FloatingLabel>
         </Form.Group>
         {/* TODO: create the rest of the input fields */}
-        <Button variant="primary" type="submit">
+        {/* <Button variant="primary" type="submit">
           Submit
-        </Button>
-        {/* <Button type="submit">{obj.id ? 'Update' : 'Create'} Game</Button> */}
+        </Button> */}
+        <Button type="submit">{obj.id ? 'Update' : 'Create'} Game</Button>
       </Form>
     </>
   );
@@ -123,11 +143,19 @@ const GameForm = ({ obj }) => {
 GameForm.propTypes = {
   obj: PropTypes.shape({
     // game_type: PropTypes.string,
-    id: PropTypes.string,
-    uid: PropTypes.string.isRequired,
-  }).isRequired,
+    id: PropTypes.number,
+    // uid: PropTypes.string,
+    title: PropTypes.string,
+    maker: PropTypes.string,
+    number_of_players: PropTypes.number,
+    skill_level: PropTypes.number,
+    game_type: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      label: PropTypes.string.isRequired,
+    }),
+  }),
 };
-// GameForm.defaultProps = {
-//   obj: initialState,
-// };
+GameForm.defaultProps = {
+  obj: initialState,
+};
 export default GameForm;

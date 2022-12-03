@@ -12,7 +12,6 @@ const EventForm = ({ obj }) => {
   const { user } = useAuth();
   const router = useRouter();
   const [games, setGames] = useState([]);
-  console.log(games);
   /*
   Since the input fields are bound to the values of
   the properties of this state variable, you need to
