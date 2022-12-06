@@ -20,8 +20,8 @@ const createEvent = (event) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const updateEvent = (event, id) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/events/edit/${id}`, {
+const updateEvent = (event) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/events/${event.id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',

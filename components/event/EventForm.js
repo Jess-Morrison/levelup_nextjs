@@ -7,6 +7,14 @@ import { useAuth } from '../../utils/context/authContext';
 import { createEvent, updateEvent } from '../../utils/data/eventData';
 import { getGames } from '../../utils/data/gameData';
 
+const initialState = {
+  description: '',
+  date: '',
+  time: '',
+  game: 0,
+  organizer: '',
+};
+
 const EventForm = ({ obj }) => {
   // const [formInput, setFormInput] = useState();
   const { user } = useAuth();
@@ -17,17 +25,18 @@ const EventForm = ({ obj }) => {
   the properties of this state variable, you need to
   provide some default values.
   */
-  const [currentEvent, setCurrentEvent] = useState({
-    description: '',
-    date: '',
-    time: '',
-    game: '',
-    organizer: '',
-  });
+  const [currentEvent, setCurrentEvent] = useState(initialState);
+  // const [currentEvent, setCurrentEvent] = useState({
+  //   description: '',
+  //   date: '',
+  //   time: '',
+  //   game: '',
+  //   organizer: '',
+  // });
 
   useEffect(() => {
     // setCurrentGame is the same as setFormInput
-    if (obj)setCurrentEvent(obj);
+    if (obj.id)setCurrentEvent(obj);
   }, [obj, user]);
 
   useEffect(() => {
@@ -47,7 +56,7 @@ const EventForm = ({ obj }) => {
   const handleSubmit = (e) => {
     // Prevent form from being submitted
     e.preventDefault();
-    if (obj) {
+    if (obj.id) {
       updateEvent(currentEvent).then(() => router.push('/events'));
     } else {
       const event = {
@@ -73,7 +82,7 @@ const EventForm = ({ obj }) => {
     <>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
-          {/* <h2 className="text-white mt-5">{obj.id ? 'Update' : 'Create'} Game</h2> */}
+          <h2 className="text-white mt-5">{obj.id ? 'Update' : 'Create'} Event</h2>
           <Form.Label>Title</Form.Label>
           <Form.Control name="description" required value={currentEvent.description} onChange={handleChange} className="mb-3" />
           <FloatingLabel controlId="floatingInput1" label="Date" className="mb-3">
@@ -98,7 +107,7 @@ const EventForm = ({ obj }) => {
               <option
                 key={game.id}
                 value={game.id}
-                selected={game.title}
+                // selected={game.title}
               >
                 {game.title}
               </option>
@@ -108,10 +117,10 @@ const EventForm = ({ obj }) => {
           </FloatingLabel>
         </Form.Group>
         {/* TODO: create the rest of the input fields */}
-        <Button variant="primary" type="submit">
+        {/* <Button variant="primary" type="submit">
           Submit
-        </Button>
-        {/* <Button type="submit">{obj.id ? 'Update' : 'Create'} Game</Button> */}
+        </Button> */}
+        <Button type="submit">{obj.id ? 'Update' : 'Create'} Event</Button>
       </Form>
     </>
   );
@@ -119,11 +128,18 @@ const EventForm = ({ obj }) => {
 
 EventForm.propTypes = {
   obj: PropTypes.shape({
-    id: PropTypes.string,
-    uid: PropTypes.string.isRequired,
-  }).isRequired,
+    id: PropTypes.number,
+    uid: PropTypes.string,
+    description: PropTypes.string,
+    date: PropTypes.string,
+    time: PropTypes.string,
+    game: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+    }),
+  }),
 };
-// GameForm.defaultProps = {
-//   obj: initialState,
-// };
+EventForm.defaultProps = {
+  obj: initialState,
+};
 export default EventForm;

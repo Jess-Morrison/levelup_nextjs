@@ -91,7 +91,7 @@ const GameForm = ({ obj }) => {
   return (
     <>
       <Form onSubmit={handleSubmit}>
-        <h2 className="text-white mt-5">{obj.id ? 'Update' : 'Create'} Player</h2>
+        <h2 className="text-white mt-5">{obj.id ? 'Update' : 'Create'} Game</h2>
         <Form.Group className="mb-3">
           {/* <h2 className="text-white mt-5">{obj.id ? 'Update' : 'Create'} Game</h2> */}
           <Form.Label>Title</Form.Label>

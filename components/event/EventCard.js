@@ -36,8 +36,8 @@ EventCard.propTypes = {
 
   game: PropTypes.number,
   description: PropTypes.string,
-  date: PropTypes.number,
-  time: PropTypes.number,
+  date: PropTypes.string,
+  time: PropTypes.string,
   organizer: PropTypes.number,
   id: PropTypes.number,
 }.isRequired;

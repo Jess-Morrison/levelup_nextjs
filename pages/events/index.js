@@ -8,6 +8,7 @@ function Home() {
   const [events, setEvents] = useState([]);
   const router = useRouter();
   // const { data } = router.query;
+  console.log(events);
 
   useEffect(() => {
     getEvents().then((setEvents));
@@ -35,7 +36,7 @@ function Home() {
         <h1>Events</h1>
         {events.map((event) => (
           <section key={`event--${event.id}`} className="event">
-            <EventCard description={event.description} date={event.date} time={event.time} organizer={event.gamer.bio} />
+            <EventCard description={event.description} date={event.date} time={event.time} organizer={event.organizer.bio} id={event.id} />
           </section>
         ))}
       </article>
