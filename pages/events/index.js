@@ -8,7 +8,6 @@ function Home() {
   const [events, setEvents] = useState([]);
   const router = useRouter();
   // const { data } = router.query;
-  console.log(events);
 
   useEffect(() => {
     getEvents().then((setEvents));

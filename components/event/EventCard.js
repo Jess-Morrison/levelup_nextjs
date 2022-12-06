@@ -4,6 +4,7 @@ import React from 'react';
 import { Card } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Link from 'next/link';
+import { deleteEvent } from '../../utils/data/eventData';
 
 function EventCard({
   organizer,
@@ -11,11 +12,19 @@ function EventCard({
   date,
   time,
   id,
+  onUpdate,
 }) {
   // const [formInput, setFormInput] = useState(initialState);
   // useEffect(() => {
   //   if (obj.firebaseKey)setFormInput(obj);
   // }, [obj, user]);
+
+  const deleteThisEvent = () => {
+    if (window.confirm(`Delete ${description}?`)) {
+      deleteEvent(id).then(() => onUpdate());
+      window.location.reload();
+    }
+  };
 
   return (
     <Card className="text-center">
@@ -26,6 +35,9 @@ function EventCard({
         <Link href={`/events/edit/${id}`} passHref>
           <Button variant="info">EDIT</Button>
         </Link>
+        <Button variant="danger" onClick={deleteThisEvent} className="m-2">
+          DELETE
+        </Button>
       </Card.Body>
       <Card.Footer className="text-muted">Organizer: {organizer}</Card.Footer>
     </Card>
@@ -40,6 +52,7 @@ EventCard.propTypes = {
   time: PropTypes.string,
   organizer: PropTypes.number,
   id: PropTypes.number,
+  onUpdate: PropTypes.func.isRequired,
 }.isRequired;
 
 export default EventCard;

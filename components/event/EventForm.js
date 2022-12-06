@@ -85,10 +85,10 @@ const EventForm = ({ obj }) => {
           <h2 className="text-white mt-5">{obj.id ? 'Update' : 'Create'} Event</h2>
           <Form.Label>Title</Form.Label>
           <Form.Control name="description" required value={currentEvent.description} onChange={handleChange} className="mb-3" />
-          <FloatingLabel controlId="floatingInput1" label="Date" className="mb-3">
+          <FloatingLabel controlId="floatingInput1" label="Date: Use YYYY-MM-DD Format" className="mb-3">
             <Form.Control type="text" placeholder="Date" name="date" value={currentEvent.date} onChange={handleChange} required />
           </FloatingLabel>
-          <FloatingLabel controlId="floatingInput1" label="Time" className="mb-3">
+          <FloatingLabel controlId="floatingInput1" label="Time:" className="mb-3">
             <Form.Control type="text" placeholder="Time" name="time" value={currentEvent.time} onChange={handleChange} required />
           </FloatingLabel>
           <FloatingLabel controlId="floatingSelect">
