@@ -4,15 +4,17 @@ import React from 'react';
 import { Card } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Link from 'next/link';
-import { deleteEvent } from '../../utils/data/eventData';
+import { deleteEvent, leaveEvent, joinEvent } from '../../utils/data/eventData';
 
 function EventCard({
+  // eventObj,
   organizer,
   description,
   date,
   time,
   id,
   onUpdate,
+  joined,
 }) {
   // const [formInput, setFormInput] = useState(initialState);
   // useEffect(() => {
@@ -25,6 +27,7 @@ function EventCard({
       window.location.reload();
     }
   };
+  console.warn(joined);
 
   return (
     <Card className="text-center">
@@ -38,6 +41,25 @@ function EventCard({
         <Button variant="danger" onClick={deleteThisEvent} className="m-2">
           DELETE
         </Button>
+        { joined ? (
+          <Button
+            onClick={
+              leaveEvent
+            }
+          >
+            Leave
+          </Button>
+        )
+        // TODO: create the Join button
+          : (
+            <Button
+              onClick={
+                joinEvent
+              }
+            >
+              Join
+            </Button>
+          )}
       </Card.Body>
       <Card.Footer className="text-muted">Organizer: {organizer}</Card.Footer>
     </Card>
@@ -45,13 +67,15 @@ function EventCard({
 }
 
 EventCard.propTypes = {
-
+  // eventObj: PropTypes.shape({
   game: PropTypes.number,
   description: PropTypes.string,
   date: PropTypes.string,
   time: PropTypes.string,
   organizer: PropTypes.number,
   id: PropTypes.number,
+  joined: PropTypes.bool,
+  // }),
   onUpdate: PropTypes.func.isRequired,
 }.isRequired;
 

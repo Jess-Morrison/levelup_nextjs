@@ -1,9 +1,15 @@
+/* eslint-disable camelcase */
 import { clientCredentials } from '../client';
 
-const getEvents = () => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/events`)
-    .then((response) => response.json())
-    .then(resolve)
+const getEvents = (uid = '') => new Promise((resolve, reject) => {
+  // console.warn(user_id);
+  fetch(`${clientCredentials.databaseURL}/events`, {
+    method: 'GET',
+    headers: {
+      Authorization: uid,
+    },
+  })
+    .then((response) => resolve(response.json()))
     .catch(reject);
 });
 
@@ -46,7 +52,40 @@ const deleteEvent = (id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const joinEvent = (eventId, uid) => new Promise((resolve, reject) => {
+  // TODO: Write the POST fetch request to join and event
+  console.warn(uid);
+  fetch(`${clientCredentials.databaseURL}/events/${eventId}/signup`, {
+    method: 'POST',
+    body: JSON.stringify({ uid }),
+    headers: {
+      // Authorization: uid, // This is how to pass the uid
+      'Content-Type': 'application/json',
+      // Accept: 'application/json',
+    },
+    // uid,
+  })
+    .then((response) => resolve(response.json()))
+    .catch(reject);
+});
+
+const leaveEvent = (eventId, uid) => new Promise((resolve, reject) => {
+  // TODO: Write the DELETE fetch request to leave an event
+  fetch(`${clientCredentials.databaseURL}/events/${eventId}/leave`,
+    {
+      method: 'DELETE',
+      body: JSON.stringify(uid),
+      headers: {
+        // Authorization: uid, // This is how to pass the uid
+        'Content-Type': 'application/json',
+      },
+
+    })
+    .then((response) => resolve(response.json()))
+    .catch(reject);
+});
+
 // eslint-disable-next-line import/prefer-default-export
 export {
-  getEvents, updateEvent, createEvent, getEventById, deleteEvent,
+  getEvents, updateEvent, createEvent, getEventById, deleteEvent, leaveEvent, joinEvent,
 };
