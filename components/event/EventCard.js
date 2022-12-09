@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import PropTypes from 'prop-types';
 import React from 'react';
 // import React, { useState, useEffect } from 'react';
@@ -5,6 +6,7 @@ import { Card } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Link from 'next/link';
 import { deleteEvent, leaveEvent, joinEvent } from '../../utils/data/eventData';
+import { useAuth } from '../../utils/context/authContext';
 
 function EventCard({
   // eventObj,
@@ -13,9 +15,20 @@ function EventCard({
   date,
   time,
   id,
-  onUpdate,
   joined,
+  onUpdate,
 }) {
+  const { user } = useAuth();
+
+  const joinTheEvent = () => {
+    joinEvent(id, user.uid).then(() => onUpdate());
+    console.warn(joinEvent);
+  };
+  // events.organizer.uid
+
+  const leaveTheEvent = () => {
+    leaveEvent(id, user.uid).then(() => onUpdate());
+  };
   // const [formInput, setFormInput] = useState(initialState);
   // useEffect(() => {
   //   if (obj.firebaseKey)setFormInput(obj);
@@ -27,7 +40,7 @@ function EventCard({
       window.location.reload();
     }
   };
-  console.warn(joined);
+  // console.warn(joined);
 
   return (
     <Card className="text-center">
@@ -44,7 +57,7 @@ function EventCard({
         { joined ? (
           <Button
             onClick={
-              leaveEvent
+              leaveTheEvent
             }
           >
             Leave
@@ -54,7 +67,7 @@ function EventCard({
           : (
             <Button
               onClick={
-                joinEvent
+                joinTheEvent
               }
             >
               Join
@@ -75,6 +88,7 @@ EventCard.propTypes = {
   organizer: PropTypes.number,
   id: PropTypes.number,
   joined: PropTypes.bool,
+  uid: PropTypes.string,
   // }),
   onUpdate: PropTypes.func.isRequired,
 }.isRequired;

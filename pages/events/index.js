@@ -44,6 +44,7 @@ function Home() {
               time={event.time}
               organizer={event.organizer.bio}
               id={event.id}
+              uid={user.uid}
               joined={event.joined}
               // // TODO: create the Leave button
               //   ? (

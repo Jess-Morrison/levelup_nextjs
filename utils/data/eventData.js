@@ -9,7 +9,8 @@ const getEvents = (uid = '') => new Promise((resolve, reject) => {
       Authorization: uid,
     },
   })
-    .then((response) => resolve(response.json()))
+    .then((response) => response.json())
+    .then(resolve)
     .catch(reject);
 });
 
@@ -54,10 +55,10 @@ const deleteEvent = (id) => new Promise((resolve, reject) => {
 
 const joinEvent = (eventId, uid) => new Promise((resolve, reject) => {
   // TODO: Write the POST fetch request to join and event
-  console.warn(uid);
+  // console.warn(uid);
   fetch(`${clientCredentials.databaseURL}/events/${eventId}/signup`, {
     method: 'POST',
-    body: JSON.stringify({ uid }),
+    body: JSON.stringify(uid),
     headers: {
       // Authorization: uid, // This is how to pass the uid
       'Content-Type': 'application/json',
@@ -65,8 +66,8 @@ const joinEvent = (eventId, uid) => new Promise((resolve, reject) => {
     },
     // uid,
   })
-    .then((response) => resolve(response.json()))
-    .catch(reject);
+    .then((response) => resolve(response))
+    .catch((error) => reject(error));
 });
 
 const leaveEvent = (eventId, uid) => new Promise((resolve, reject) => {
@@ -81,8 +82,8 @@ const leaveEvent = (eventId, uid) => new Promise((resolve, reject) => {
       },
 
     })
-    .then((response) => resolve(response.json()))
-    .catch(reject);
+    .then((response) => resolve(response))
+    .catch((error) => reject(error));
 });
 
 // eslint-disable-next-line import/prefer-default-export
