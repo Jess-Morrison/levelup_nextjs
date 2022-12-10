@@ -22,7 +22,6 @@ function EventCard({
 
   const joinTheEvent = () => {
     joinEvent(id, user.uid).then(() => onUpdate());
-    console.warn(joinEvent);
   };
   // events.organizer.uid
 

@@ -46,6 +46,7 @@ function Home() {
               id={event.id}
               uid={user.uid}
               joined={event.joined}
+              onUpdate={getEvents}
               // // TODO: create the Leave button
               //   ? (
               //     <Button

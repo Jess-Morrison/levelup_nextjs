@@ -58,7 +58,7 @@ const joinEvent = (eventId, uid) => new Promise((resolve, reject) => {
   // console.warn(uid);
   fetch(`${clientCredentials.databaseURL}/events/${eventId}/signup`, {
     method: 'POST',
-    body: JSON.stringify(uid),
+    body: JSON.stringify({ uid }),
     headers: {
       // Authorization: uid, // This is how to pass the uid
       'Content-Type': 'application/json',
